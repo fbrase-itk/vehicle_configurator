@@ -1,34 +1,74 @@
-# Prototyp KFZ Konfigurator
+# Vehicle Configurator Prototype
 
-## Überblick
+## Overview
 
-Es soll ein KFZ-Konfigurator (Webapplikation) entwickelt werden, welcher die Konfiguration eines Autos mit den folgenden Optionen ermöglicht:
+A vehicle configurator (web application) is to be developed that allows the configuration of a car with the following options:
 
-- Motorleistung
-- Lackierung
-- Felgen
-- Sonderausstattungen (max. 5 Stück, z.B. Klimaanlage, Soundsystem, Fahrsicherheitssysteme etc.)
+- Engine power
+- Paint finish
+- Wheels/Rims
+- Special equipment (max. 5 items, e.g., air conditioning, sound system, driver safety systems, etc.)
 
-## Funktionale Anforderungen
+## Functional Requirements
 
-Jede Veränderung an der Konfiguration soll sich unmittelbar und ohne einen Page-Refresh auf den angezeigten Preis auswirken.
+Any change to the configuration should immediately reflect in the displayed price without requiring a page refresh.
 
-Am Ende der Konfiguration soll eine Zusammenfassung angezeigt und die Bestellung abgesendet werden können.
+At the end of the configuration, a summary should be displayed and the order should be submittable.
 
-Zudem soll eine URL generiert werden, mit der der Benutzer jederzeit Zugriff auf die gewählte Konfiguration hat.
+Additionally, a URL should be generated that allows the user to access the selected configuration at any time.
 
-Sowohl die Konfigurationseigenschaften als auch die Bestellungen sind in einer Datenbank zu speichern.
+Both the configuration properties and the orders are to be stored in a database.
 
-Als Hilfestellung zum Design und zur Benutzerführung können die zahlreichen am Markt verfügbaren Konfiguratoren als Orientierung dienen.
+As guidance for design and user experience, the numerous configurators available on the market can serve as reference.
 
-Die Implementierung einer Authentifizierungs- bzw. Authorisierungslogik für Anwender ist nicht erforderlich.
+Implementation of authentication or authorization logic for users is not required.
 
-## Technischer Rahmen
+## Technical Framework
 
-- **Frontend:** Vue.js, React oder Angular
-- **Backend (Services):** .NET oder Java
-- **Betrieb:** Serverless, Container oder Webserver (gerne auch in der Cloud)
+- **Frontend:** Vue.js, React, or Angular
+- **Backend (Services):** Java
+- **Operations:** Docker Compose
 
-## CI/CD
+## Expected Project Structure
 
-Gerne würde der Kunde eine funktionierende CI/CD-Pipeline sehen, die einen Code-Change auf das Zielsystem deployed.
+```
+vehicle-configurator/
+│
+├── docker/
+│   ├── compose.yml
+│   ├── .env
+│   │
+│   ├── frontend/
+│   │   ├── Dockerfile
+│   │   ├── package.json
+│   │   ├── vite.config.js / angular.json / webpack.config.js
+│   │   └── src/
+│   │       ├── components/
+│   │       ├── pages/
+│   │       └── services/
+│   │
+│   ├── backend/
+│   │   ├── Dockerfile
+│   │   ├── pom.xml
+│   │   └── src/
+│   │       └── main/java/com/example/configurator/
+│   │           ├── controller/
+│   │           ├── service/
+│   │           ├── model/
+│   │           └── repository/
+│   │
+│   ├── database/
+│   │   ├── init.sql
+│   │   └── Dockerfile (optional)
+│   │
+│   └── reverse-proxy/   (optional but professional)
+│       ├── nginx.conf
+│       └── Dockerfile
+│
+├── README.md
+└── docs/
+```
+
+## Tasks
+
+- Task-1: Implement the project with frontend in Vue.js and database MySQL and do a minimal version first
