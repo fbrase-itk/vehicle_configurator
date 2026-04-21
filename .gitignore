@@ -29,3 +29,6 @@ Thumbs.db
 
 # Docker
 docker/db-data/
+
+# Local env overrides (tracked env files live under docker/env/)
+.env.local

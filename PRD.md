@@ -29,47 +29,7 @@ Implementation of authentication or authorization logic for users is not require
 - **Backend (Services):** Java
 - **Operations:** Docker Compose
 
-## Expected Old Project Structure
-
-```
-vehicle-configurator/
-│
-├── docker/
-│   ├── compose.yml
-│   ├── .env
-│   │
-│   ├── frontend/
-│   │   ├── Dockerfile
-│   │   ├── package.json
-│   │   ├── vite.config.js / angular.json / webpack.config.js
-│   │   └── src/
-│   │       ├── components/
-│   │       ├── pages/
-│   │       └── services/
-│   │
-│   ├── backend/
-│   │   ├── Dockerfile
-│   │   ├── pom.xml
-│   │   └── src/
-│   │       └── main/java/com/example/configurator/
-│   │           ├── controller/
-│   │           ├── service/
-│   │           ├── model/
-│   │           └── repository/
-│   │
-│   ├── database/
-│   │   ├── init.sql
-│   │   └── Dockerfile (optional)
-│   │
-│   └── reverse-proxy/   (optional but professional)
-│       ├── nginx.conf
-│       └── Dockerfile
-│
-├── README.md
-└── docs/
-```
-
-## Expected new Project Structure
+## Expected Project Structure
 
 ```
 vehicle-configurator/
@@ -122,5 +82,4 @@ vehicle-configurator/
 ## Tasks
 
 - Task-1: Implement the project with frontend in Vue.js and database MySQL and do a minimal version first
-
 - Task-2: Can you integrate Three.js to render the car and get a nice model (e.g. the Ferrari) for this pupose 
