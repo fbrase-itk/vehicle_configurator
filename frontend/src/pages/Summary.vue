@@ -145,9 +145,9 @@ export default {
   },
   methods: {
     formatPrice(price) {
-      return new Intl.NumberFormat('en-US', {
+      return new Intl.NumberFormat('de-DE', {
         style: 'currency',
-        currency: 'USD'
+        currency: 'EUR'
       }).format(price)
     },
     copyLink() {

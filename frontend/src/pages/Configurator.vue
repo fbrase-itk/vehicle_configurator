@@ -3,39 +3,41 @@
     <div v-if="loading" class="loading">Loading options...</div>
     
     <template v-else>
-      <!-- Step Navigation -->
-      <nav class="step-nav">
-        <button 
-          v-for="step in steps" 
-          :key="step.id"
-          :class="['step-btn', { active: currentStep === step.id, completed: isStepCompleted(step.id) }]"
-          @click="currentStep = step.id"
-        >
-          {{ step.label }}
-        </button>
-      </nav>
-
-      <div class="main-content">
-        <!-- 3D Car Preview -->
-        <div class="preview-section">
-          <CarPreview3D 
-            :paintColor="selectedPaint?.colorCode || '#BF0012'"
-            :paintName="selectedPaint?.name"
-            :wheelColor="selectedWheelColor?.colorCode || '#000000'"
-            :wheelDesign="selectedWheelDesign?.modelObject || 'Obj_Rim_T0A'"
-            :caliperColor="selectedCaliperColor?.colorCode || '#990000'"
-            :modelUrl="selectedCarModel?.modelFile || '/models/aventador.glb'"
-          />
-        </div>
-
-        <!-- Price Summary (side panel) -->
-        <aside class="price-summary">
-          <h2>Total Price</h2>
-          <div class="total">{{ formatPrice(totalPrice) }}</div>
-          <button @click="saveAndContinue" class="btn-primary" :disabled="!isValid">
-            Continue to Summary
+      <!-- Step tabs + total price + CTA rendered inside the sticky app header -->
+      <Teleport to="#header-actions">
+        <nav class="step-nav">
+          <button
+            v-for="step in steps"
+            :key="step.id"
+            :class="['step-btn', { active: currentStep === step.id, completed: isStepCompleted(step.id) }]"
+            @click="currentStep = step.id"
+          >
+            {{ step.label }}
           </button>
-        </aside>
+        </nav>
+        <div class="header-price">
+          <span class="header-price-label">Total</span>
+          <span class="header-price-value">{{ formatPrice(totalPrice) }}</span>
+        </div>
+        <button
+          @click="saveAndContinue"
+          class="btn-primary header-continue"
+          :disabled="!isValid"
+        >
+          Continue to Summary
+        </button>
+      </Teleport>
+
+      <!-- 3D Car Preview (full width) -->
+      <div class="preview-section">
+        <CarPreview3D
+          :paintColor="selectedPaint?.colorCode || '#BF0012'"
+          :paintName="selectedPaint?.name"
+          :wheelColor="selectedWheelColor?.colorCode || '#000000'"
+          :wheelDesign="selectedWheelDesign?.modelObject || 'Obj_Rim_T0A'"
+          :caliperColor="selectedCaliperColor?.colorCode || '#990000'"
+          :modelUrl="selectedCarModel?.modelFile || '/models/aventador.glb'"
+        />
       </div>
 
       <!-- Options Section (below car) -->
@@ -269,9 +271,9 @@ export default {
   },
   methods: {
     formatPrice(price) {
-      return new Intl.NumberFormat('en-US', {
+      return new Intl.NumberFormat('de-DE', {
         style: 'currency',
-        currency: 'USD'
+        currency: 'EUR'
       }).format(price)
     },
     isStepCompleted(stepId) {
@@ -321,23 +323,20 @@ export default {
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* Step Navigation */
+/* Step Navigation — embedded in the app header */
 .step-nav {
   display: flex;
-  gap: 0.5rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 1rem;
+  gap: 0.4rem;
   flex-wrap: wrap;
 }
 
 .step-btn {
-  padding: 0.75rem 1.5rem;
+  padding: 0.5rem 1rem;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -355,7 +354,7 @@ export default {
 
 .step-btn.completed {
   border-color: rgba(74, 222, 128, 0.5);
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .step-btn.completed::after {
@@ -363,65 +362,59 @@ export default {
   color: #4ade80;
 }
 
-/* Main Content Area */
-.main-content {
-  display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
+/* Header price pill */
+.header-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.1;
+  padding: 0 0.5rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  margin-left: 0.25rem;
 }
 
-.preview-section {
-  min-height: 350px;
+.header-price-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.5);
 }
 
-/* Price Summary */
-.price-summary {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 1.5rem;
-  height: fit-content;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  position: sticky;
-  top: 1rem;
-}
-
-.price-summary h2 {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 0.5rem;
-}
-
-.price-summary .total {
-  font-size: 1.75rem;
+.header-price-value {
+  font-size: 1.05rem;
   font-weight: 700;
   background: linear-gradient(90deg, #00d4ff, #7c3aed);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 1.5rem;
 }
 
+/* Continue button (header variant) */
 .btn-primary {
-  width: 100%;
-  padding: 1rem;
+  padding: 0.6rem 1.2rem;
   background: linear-gradient(90deg, #00d4ff, #7c3aed);
   border: none;
   border-radius: 8px;
   color: #fff;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s, opacity 0.2s;
+  white-space: nowrap;
 }
 
 .btn-primary:hover:not(:disabled) {
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
 .btn-primary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Preview (now full width below the header) */
+.preview-section {
+  min-height: 350px;
+  margin-bottom: 1.5rem;
 }
 
 /* Options Section */
@@ -660,41 +653,23 @@ export default {
 }
 
 @media (max-width: 900px) {
-  .main-content {
-    grid-template-columns: 1fr;
-  }
-
   .step-grid {
     grid-template-columns: 1fr;
   }
-  
-  .price-summary {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    border-radius: 16px 16px 0 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+
+  .step-btn {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.8rem;
   }
 
-  .price-summary h2 {
-    display: none;
+  .header-price {
+    border-left: none;
+    padding: 0;
   }
 
-  .price-summary .total {
-    margin-bottom: 0;
-    font-size: 1.5rem;
-  }
-
-  .price-summary .btn-primary {
-    flex: 1;
-  }
-
-  .options-section {
-    margin-bottom: 100px;
+  .btn-primary {
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
   }
 }
 </style>

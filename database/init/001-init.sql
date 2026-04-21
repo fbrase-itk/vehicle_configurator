@@ -90,50 +90,52 @@ CREATE TABLE IF NOT EXISTS orders (
 
 -- Seed data
 
+-- All prices are stored in EUR (converted from USD at 1 USD = 0.92 EUR).
+
 -- Car Models
 INSERT INTO car_models (name, brand, model_file, base_price, description) VALUES
-('Aventador LP700-4', 'Lamborghini', '/models/aventador.glb', 393695.00, 'The Lamborghini Aventador is a mid-engine sports car. The Aventador''s V12 engine produces 700 HP.');
+('Aventador LP700-4', 'Lamborghini', '/models/aventador.glb', 362199.40, 'The Lamborghini Aventador is a mid-engine sports car. The Aventador''s V12 engine produces 700 HP.');
 
 -- Engine options for Aventador (car_model_id = 1)
 INSERT INTO engine_options (car_model_id, name, horsepower, price) VALUES
 (1, 'V12 6.5L LP700', 700, 0.00),
-(1, 'V12 6.5L LP720 (50th Anniversary)', 720, 25000.00),
-(1, 'V12 6.5L LP750 SV', 750, 45000.00),
-(1, 'V12 6.5L LP770 SVJ', 770, 85000.00);
+(1, 'V12 6.5L LP720 (50th Anniversary)', 720, 23000.00),
+(1, 'V12 6.5L LP750 SV', 750, 41400.00),
+(1, 'V12 6.5L LP770 SVJ', 770, 78200.00);
 
 -- Paint options (Lamborghini colors)
 INSERT INTO paint_options (name, color_code, price) VALUES
 ('Bianco Monocerus', '#F2F3F5', 0.00),
-('Nero Aldebaran', '#1a1a1a', 2500.00),
-('Rosso Mars', '#BF0012', 3500.00),
-('Arancio Atlas', '#F77F21', 3500.00),
-('Arancio Argos', '#FC4705', 3500.00),
-('Blu Cepheus', '#4393E6', 4000.00),
-('Verde Mantis', '#7FBA00', 4500.00),
-('Giallo Orion', '#FFD700', 4500.00);
+('Nero Aldebaran', '#1a1a1a', 2300.00),
+('Rosso Mars', '#BF0012', 3220.00),
+('Arancio Atlas', '#F77F21', 3220.00),
+('Arancio Argos', '#FC4705', 3220.00),
+('Blu Cepheus', '#4393E6', 3680.00),
+('Verde Mantis', '#7FBA00', 4140.00),
+('Giallo Orion', '#FFD700', 4140.00);
 
 -- Wheel designs (mapped to 3D model objects)
 INSERT INTO wheel_designs (name, model_object, price) VALUES
 ('Dione', 'Obj_Rim_T0A', 0.00),
-('Mimas', 'Obj_Rim_T0B', 5000.00);
+('Mimas', 'Obj_Rim_T0B', 4600.00);
 
 -- Wheel colors
 INSERT INTO wheel_colors (name, color_code, price) VALUES
 ('Gloss Black', '#000000', 0.00),
-('Titanium Grey', '#4C5457', 1500.00),
-('Silver Metallic', '#dddddd', 2500.00);
+('Titanium Grey', '#4C5457', 1380.00),
+('Silver Metallic', '#dddddd', 2300.00);
 
 -- Brake caliper colors
 INSERT INTO caliper_colors (name, color_code, price) VALUES
 ('Red', '#990000', 0.00),
-('Yellow', '#E9A435', 500.00),
-('Black', '#000000', 500.00),
-('White', '#F1F7F7', 750.00);
+('Yellow', '#E9A435', 460.00),
+('Black', '#000000', 460.00),
+('White', '#F1F7F7', 690.00);
 
 -- Special equipment
 INSERT INTO special_equipment (name, description, price) VALUES
-('Carbon Fiber Exterior Package', 'Front splitter, side skirts, rear diffuser in carbon fiber', 15000.00),
-('Carbon Fiber Interior Package', 'Dashboard, door panels, center console in carbon fiber', 12000.00),
-('Lifting System', 'Front axle lifting system for steep driveways', 8500.00),
-('Sensonum Sound System', 'Premium Sensonum surround sound system', 5500.00),
-('Transparent Engine Bonnet', 'Glass engine cover to showcase V12', 7500.00);
+('Carbon Fiber Exterior Package', 'Front splitter, side skirts, rear diffuser in carbon fiber', 13800.00),
+('Carbon Fiber Interior Package', 'Dashboard, door panels, center console in carbon fiber', 11040.00),
+('Lifting System', 'Front axle lifting system for steep driveways', 7820.00),
+('Sensonum Sound System', 'Premium Sensonum surround sound system', 5060.00),
+('Transparent Engine Bonnet', 'Glass engine cover to showcase V12', 6900.00);

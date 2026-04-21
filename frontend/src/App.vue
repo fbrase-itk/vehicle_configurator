@@ -2,6 +2,7 @@
   <div id="app">
     <header>
       <h1>Vehicle Configurator</h1>
+      <div id="header-actions" class="header-actions"></div>
     </header>
     <main>
       <router-view />
@@ -30,16 +31,32 @@ body {
 header {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
-  padding: 1.5rem 2rem;
+  padding: 0.85rem 2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
 header h1 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   background: linear-gradient(90deg, #00d4ff, #7c3aed);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  flex-shrink: 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
+  flex-wrap: wrap;
 }
 
 main {
