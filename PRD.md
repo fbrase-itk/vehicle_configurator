@@ -29,7 +29,7 @@ Implementation of authentication or authorization logic for users is not require
 - **Backend (Services):** Java
 - **Operations:** Docker Compose
 
-## Expected Project Structure
+## Expected Old Project Structure
 
 ```
 vehicle-configurator/
@@ -69,6 +69,56 @@ vehicle-configurator/
 └── docs/
 ```
 
+## Expected new Project Structure
+
+```
+vehicle-configurator/
+│
+├── backend/
+│   ├── pom.xml
+│   └── src/
+│       ├── main/
+│       │   ├── java/com/example/configurator/
+│       │   │   ├── controller/
+│       │   │   ├── service/
+│       │   │   ├── model/
+│       │   │   └── repository/
+│       │   └── resources/
+│       └── test/
+│           └── java/
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   └── services/
+│   ├── package.json
+│   └── vite.config.js / angular.json / webpack.config.js
+│
+├── database/
+│   ├── init/
+│   │   └── 001-init.sql
+│   └── seeds/
+│
+├── docker/
+│   ├── compose.yml
+│   ├── env/
+│   │   ├── backend.env
+│   │   ├── frontend.env
+│   │   └── database.env
+│   ├── frontend/
+│   │   ├── Dockerfile
+│   │   └── .dockerignore
+│   └── backend/
+│       ├── Dockerfile
+│       └── .dockerignore
+│
+├── docs/
+├── README.md
+├── .gitignore
+└── .env
+```
 ## Tasks
 
 - Task-1: Implement the project with frontend in Vue.js and database MySQL and do a minimal version first
