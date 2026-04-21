@@ -1,8 +1,21 @@
-CREATE TABLE IF NOT EXISTS engine_options (
+-- Car models table (the base vehicle)
+CREATE TABLE IF NOT EXISTS car_models (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
+    brand VARCHAR(50) NOT NULL,
+    model_file VARCHAR(200) NOT NULL,
+    base_price DECIMAL(10, 2) NOT NULL,
+    description TEXT
+);
+
+-- Engine options linked to specific car models
+CREATE TABLE IF NOT EXISTS engine_options (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    car_model_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
     horsepower INT NOT NULL,
-    price DECIMAL(10, 2) NOT NULL
+    price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (car_model_id) REFERENCES car_models(id)
 );
 
 CREATE TABLE IF NOT EXISTS paint_options (
@@ -12,10 +25,24 @@ CREATE TABLE IF NOT EXISTS paint_options (
     price DECIMAL(10, 2) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS wheel_options (
+CREATE TABLE IF NOT EXISTS wheel_designs (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    size VARCHAR(20) NOT NULL,
+    model_object VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS wheel_colors (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    color_code VARCHAR(7) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS caliper_colors (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    color_code VARCHAR(7) NOT NULL,
     price DECIMAL(10, 2) NOT NULL
 );
 
@@ -28,13 +55,19 @@ CREATE TABLE IF NOT EXISTS special_equipment (
 
 CREATE TABLE IF NOT EXISTS configurations (
     id VARCHAR(36) PRIMARY KEY,
+    car_model_id INT,
     engine_id INT,
     paint_id INT,
-    wheel_id INT,
+    wheel_design_id INT,
+    wheel_color_id INT,
+    caliper_color_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (car_model_id) REFERENCES car_models(id),
     FOREIGN KEY (engine_id) REFERENCES engine_options(id),
     FOREIGN KEY (paint_id) REFERENCES paint_options(id),
-    FOREIGN KEY (wheel_id) REFERENCES wheel_options(id)
+    FOREIGN KEY (wheel_design_id) REFERENCES wheel_designs(id),
+    FOREIGN KEY (wheel_color_id) REFERENCES wheel_colors(id),
+    FOREIGN KEY (caliper_color_id) REFERENCES caliper_colors(id)
 );
 
 CREATE TABLE IF NOT EXISTS configuration_equipment (
@@ -56,28 +89,51 @@ CREATE TABLE IF NOT EXISTS orders (
 );
 
 -- Seed data
-INSERT INTO engine_options (name, horsepower, price) VALUES
-('Base 1.6L', 120, 0.00),
-('Sport 2.0L', 180, 3500.00),
-('Performance 2.5L Turbo', 280, 8000.00),
-('V6 3.0L', 320, 12000.00);
 
+-- Car Models
+INSERT INTO car_models (name, brand, model_file, base_price, description) VALUES
+('Aventador LP700-4', 'Lamborghini', '/models/aventador.glb', 393695.00, 'The Lamborghini Aventador is a mid-engine sports car. The Aventador''s V12 engine produces 700 HP.');
+
+-- Engine options for Aventador (car_model_id = 1)
+INSERT INTO engine_options (car_model_id, name, horsepower, price) VALUES
+(1, 'V12 6.5L LP700', 700, 0.00),
+(1, 'V12 6.5L LP720 (50th Anniversary)', 720, 25000.00),
+(1, 'V12 6.5L LP750 SV', 750, 45000.00),
+(1, 'V12 6.5L LP770 SVJ', 770, 85000.00);
+
+-- Paint options (Lamborghini colors)
 INSERT INTO paint_options (name, color_code, price) VALUES
-('Arctic White', '#FFFFFF', 0.00),
-('Midnight Black', '#1a1a1a', 500.00),
-('Racing Red', '#cc0000', 800.00),
-('Ocean Blue', '#0066cc', 800.00),
-('Forest Green', '#228b22', 600.00);
+('Bianco Monocerus', '#F2F3F5', 0.00),
+('Nero Aldebaran', '#1a1a1a', 2500.00),
+('Rosso Mars', '#BF0012', 3500.00),
+('Arancio Atlas', '#F77F21', 3500.00),
+('Arancio Argos', '#FC4705', 3500.00),
+('Blu Cepheus', '#4393E6', 4000.00),
+('Verde Mantis', '#7FBA00', 4500.00),
+('Giallo Orion', '#FFD700', 4500.00);
 
-INSERT INTO wheel_options (name, size, price) VALUES
-('Standard Steel 16"', '16 inch', 0.00),
-('Alloy Sport 17"', '17 inch', 1200.00),
-('Premium Alloy 18"', '18 inch', 2000.00),
-('Performance 19"', '19 inch', 3500.00);
+-- Wheel designs (mapped to 3D model objects)
+INSERT INTO wheel_designs (name, model_object, price) VALUES
+('Dione', 'Obj_Rim_T0A', 0.00),
+('Mimas', 'Obj_Rim_T0B', 5000.00);
 
+-- Wheel colors
+INSERT INTO wheel_colors (name, color_code, price) VALUES
+('Gloss Black', '#000000', 0.00),
+('Titanium Grey', '#4C5457', 1500.00),
+('Silver Metallic', '#dddddd', 2500.00);
+
+-- Brake caliper colors
+INSERT INTO caliper_colors (name, color_code, price) VALUES
+('Red', '#990000', 0.00),
+('Yellow', '#E9A435', 500.00),
+('Black', '#000000', 500.00),
+('White', '#F1F7F7', 750.00);
+
+-- Special equipment
 INSERT INTO special_equipment (name, description, price) VALUES
-('Air Conditioning', 'Automatic climate control system', 1500.00),
-('Premium Sound System', 'Bose 12-speaker surround sound', 2500.00),
-('Driver Safety Package', 'Lane assist, blind spot monitoring, collision warning', 3000.00),
-('Leather Interior', 'Full leather seats with heating', 4000.00),
-('Panoramic Sunroof', 'Full glass panoramic roof with tint', 2000.00);
+('Carbon Fiber Exterior Package', 'Front splitter, side skirts, rear diffuser in carbon fiber', 15000.00),
+('Carbon Fiber Interior Package', 'Dashboard, door panels, center console in carbon fiber', 12000.00),
+('Lifting System', 'Front axle lifting system for steep driveways', 8500.00),
+('Sensonum Sound System', 'Premium Sensonum surround sound system', 5500.00),
+('Transparent Engine Bonnet', 'Glass engine cover to showcase V12', 7500.00);

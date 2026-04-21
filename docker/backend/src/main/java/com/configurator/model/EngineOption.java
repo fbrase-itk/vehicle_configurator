@@ -1,6 +1,7 @@
 package com.configurator.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.math.BigDecimal;
 
 @Entity
@@ -9,6 +10,11 @@ public class EngineOption {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "car_model_id", nullable = false)
+    @JsonIgnore
+    private CarModel carModel;
 
     @Column(nullable = false)
     private String name;
@@ -21,6 +27,9 @@ public class EngineOption {
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
+    public CarModel getCarModel() { return carModel; }
+    public void setCarModel(CarModel carModel) { this.carModel = carModel; }
+    public Integer getCarModelId() { return carModel != null ? carModel.getId() : null; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public Integer getHorsepower() { return horsepower; }

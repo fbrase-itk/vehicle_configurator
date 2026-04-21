@@ -10,38 +10,69 @@ import java.util.*;
 
 @Service
 public class ConfiguratorService {
+    private final CarModelRepository carModelRepo;
     private final EngineOptionRepository engineRepo;
     private final PaintOptionRepository paintRepo;
-    private final WheelOptionRepository wheelRepo;
+    private final WheelDesignRepository wheelDesignRepo;
+    private final WheelColorRepository wheelColorRepo;
+    private final CaliperColorRepository caliperColorRepo;
     private final SpecialEquipmentRepository equipmentRepo;
     private final ConfigurationRepository configRepo;
     private final OrderRepository orderRepo;
 
     public ConfiguratorService(
+            CarModelRepository carModelRepo,
             EngineOptionRepository engineRepo,
             PaintOptionRepository paintRepo,
-            WheelOptionRepository wheelRepo,
+            WheelDesignRepository wheelDesignRepo,
+            WheelColorRepository wheelColorRepo,
+            CaliperColorRepository caliperColorRepo,
             SpecialEquipmentRepository equipmentRepo,
             ConfigurationRepository configRepo,
             OrderRepository orderRepo) {
+        this.carModelRepo = carModelRepo;
         this.engineRepo = engineRepo;
         this.paintRepo = paintRepo;
-        this.wheelRepo = wheelRepo;
+        this.wheelDesignRepo = wheelDesignRepo;
+        this.wheelColorRepo = wheelColorRepo;
+        this.caliperColorRepo = caliperColorRepo;
         this.equipmentRepo = equipmentRepo;
         this.configRepo = configRepo;
         this.orderRepo = orderRepo;
+    }
+
+    public List<CarModel> getAllCarModels() {
+        return carModelRepo.findAll();
+    }
+
+    public Optional<CarModel> getCarModel(Integer id) {
+        return carModelRepo.findById(id);
     }
 
     public List<EngineOption> getAllEngines() {
         return engineRepo.findAll();
     }
 
+    public List<EngineOption> getEnginesByCarModel(Integer carModelId) {
+        return engineRepo.findAll().stream()
+                .filter(e -> e.getCarModel() != null && e.getCarModel().getId().equals(carModelId))
+                .toList();
+    }
+
     public List<PaintOption> getAllPaints() {
         return paintRepo.findAll();
     }
 
-    public List<WheelOption> getAllWheels() {
-        return wheelRepo.findAll();
+    public List<WheelDesign> getAllWheelDesigns() {
+        return wheelDesignRepo.findAll();
+    }
+
+    public List<WheelColor> getAllWheelColors() {
+        return wheelColorRepo.findAll();
+    }
+
+    public List<CaliperColor> getAllCaliperColors() {
+        return caliperColorRepo.findAll();
     }
 
     public List<SpecialEquipment> getAllEquipment() {
@@ -49,18 +80,28 @@ public class ConfiguratorService {
     }
 
     @Transactional
-    public Configuration saveConfiguration(Integer engineId, Integer paintId, Integer wheelId, List<Integer> equipmentIds) {
+    public Configuration saveConfiguration(Integer carModelId, Integer engineId, Integer paintId, 
+            Integer wheelDesignId, Integer wheelColorId, Integer caliperColorId, List<Integer> equipmentIds) {
         Configuration config = new Configuration();
         config.setId(UUID.randomUUID().toString());
         
+        if (carModelId != null) {
+            config.setCarModel(carModelRepo.findById(carModelId).orElse(null));
+        }
         if (engineId != null) {
             config.setEngine(engineRepo.findById(engineId).orElse(null));
         }
         if (paintId != null) {
             config.setPaint(paintRepo.findById(paintId).orElse(null));
         }
-        if (wheelId != null) {
-            config.setWheel(wheelRepo.findById(wheelId).orElse(null));
+        if (wheelDesignId != null) {
+            config.setWheelDesign(wheelDesignRepo.findById(wheelDesignId).orElse(null));
+        }
+        if (wheelColorId != null) {
+            config.setWheelColor(wheelColorRepo.findById(wheelColorId).orElse(null));
+        }
+        if (caliperColorId != null) {
+            config.setCaliperColor(caliperColorRepo.findById(caliperColorId).orElse(null));
         }
         if (equipmentIds != null && !equipmentIds.isEmpty()) {
             Set<SpecialEquipment> equipment = new HashSet<>(equipmentRepo.findAllById(equipmentIds));
@@ -77,14 +118,23 @@ public class ConfiguratorService {
     public BigDecimal calculateTotalPrice(Configuration config) {
         BigDecimal total = BigDecimal.ZERO;
         
+        if (config.getCarModel() != null) {
+            total = total.add(config.getCarModel().getBasePrice());
+        }
         if (config.getEngine() != null) {
             total = total.add(config.getEngine().getPrice());
         }
         if (config.getPaint() != null) {
             total = total.add(config.getPaint().getPrice());
         }
-        if (config.getWheel() != null) {
-            total = total.add(config.getWheel().getPrice());
+        if (config.getWheelDesign() != null) {
+            total = total.add(config.getWheelDesign().getPrice());
+        }
+        if (config.getWheelColor() != null) {
+            total = total.add(config.getWheelColor().getPrice());
+        }
+        if (config.getCaliperColor() != null) {
+            total = total.add(config.getCaliperColor().getPrice());
         }
         for (SpecialEquipment eq : config.getEquipment()) {
             total = total.add(eq.getPrice());

@@ -7,11 +7,26 @@
       <div class="summary-content">
         <h2>Your Configuration</h2>
         
+        <CarPreview3D 
+          :paintColor="config.paint?.colorCode || '#BF0012'"
+          :paintName="config.paint?.name"
+          :wheelColor="config.wheelColor?.colorCode || '#000000'"
+          :wheelDesign="config.wheelDesign?.modelObject || 'Obj_Rim_T0A'"
+          :caliperColor="config.caliperColor?.colorCode || '#990000'"
+          :modelUrl="config.carModel?.modelFile || '/models/aventador.glb'"
+        />
+        
         <div class="config-details">
+          <div class="detail-row model-row">
+            <span class="label">Model</span>
+            <span class="value">{{ config.carModel?.brand }} {{ config.carModel?.name }}</span>
+            <span class="price base-price">{{ formatPrice(config.carModel?.basePrice || 0) }}</span>
+          </div>
+
           <div class="detail-row">
             <span class="label">Engine</span>
             <span class="value">{{ config.engine?.name }} ({{ config.engine?.horsepower }} HP)</span>
-            <span class="price">{{ formatPrice(config.engine?.price || 0) }}</span>
+            <span class="price">{{ config.engine?.price > 0 ? '+' : '' }}{{ formatPrice(config.engine?.price || 0) }}</span>
           </div>
           
           <div class="detail-row">
@@ -24,9 +39,27 @@
           </div>
           
           <div class="detail-row">
-            <span class="label">Wheels</span>
-            <span class="value">{{ config.wheel?.name }}</span>
-            <span class="price">{{ formatPrice(config.wheel?.price || 0) }}</span>
+            <span class="label">Wheel Design</span>
+            <span class="value">{{ config.wheelDesign?.name }}</span>
+            <span class="price">{{ formatPrice(config.wheelDesign?.price || 0) }}</span>
+          </div>
+
+          <div class="detail-row">
+            <span class="label">Wheel Color</span>
+            <span class="value">
+              <span class="color-dot" :style="{ background: config.wheelColor?.colorCode }"></span>
+              {{ config.wheelColor?.name }}
+            </span>
+            <span class="price">{{ formatPrice(config.wheelColor?.price || 0) }}</span>
+          </div>
+
+          <div class="detail-row">
+            <span class="label">Caliper Color</span>
+            <span class="value">
+              <span class="color-dot" :style="{ background: config.caliperColor?.colorCode }"></span>
+              {{ config.caliperColor?.name }}
+            </span>
+            <span class="price">{{ formatPrice(config.caliperColor?.price || 0) }}</span>
           </div>
           
           <div v-if="config.equipment?.length" class="equipment-section">
@@ -81,8 +114,10 @@
 
 <script>
 import { getConfiguration, createOrder } from '../services/api.js'
+import CarPreview3D from '../components/CarPreview3D.vue'
 
 export default {
+  components: { CarPreview3D },
   data() {
     return {
       loading: true,
@@ -186,6 +221,18 @@ export default {
 
 .detail-row .price {
   color: #a78bfa;
+}
+
+.model-row {
+  background: rgba(124, 58, 237, 0.1);
+  margin: -0.75rem -1rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: 8px 8px 0 0;
+}
+
+.base-price {
+  color: #00d4ff !important;
+  font-weight: 600;
 }
 
 .color-dot {

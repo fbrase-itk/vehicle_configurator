@@ -23,11 +23,31 @@ public class ConfiguratorController {
     @GetMapping("/options")
     public Map<String, Object> getAllOptions() {
         Map<String, Object> options = new HashMap<>();
+        options.put("carModels", service.getAllCarModels());
         options.put("engines", service.getAllEngines());
         options.put("paints", service.getAllPaints());
-        options.put("wheels", service.getAllWheels());
+        options.put("wheelDesigns", service.getAllWheelDesigns());
+        options.put("wheelColors", service.getAllWheelColors());
+        options.put("caliperColors", service.getAllCaliperColors());
         options.put("equipment", service.getAllEquipment());
         return options;
+    }
+
+    @GetMapping("/car-models")
+    public List<CarModel> getCarModels() {
+        return service.getAllCarModels();
+    }
+
+    @GetMapping("/car-models/{id}")
+    public ResponseEntity<CarModel> getCarModel(@PathVariable Integer id) {
+        return service.getCarModel(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/car-models/{id}/engines")
+    public List<EngineOption> getEnginesByCarModel(@PathVariable Integer id) {
+        return service.getEnginesByCarModel(id);
     }
 
     @GetMapping("/engines")
@@ -40,9 +60,19 @@ public class ConfiguratorController {
         return service.getAllPaints();
     }
 
-    @GetMapping("/wheels")
-    public List<WheelOption> getWheels() {
-        return service.getAllWheels();
+    @GetMapping("/wheel-designs")
+    public List<WheelDesign> getWheelDesigns() {
+        return service.getAllWheelDesigns();
+    }
+
+    @GetMapping("/wheel-colors")
+    public List<WheelColor> getWheelColors() {
+        return service.getAllWheelColors();
+    }
+
+    @GetMapping("/caliper-colors")
+    public List<CaliperColor> getCaliperColors() {
+        return service.getAllCaliperColors();
     }
 
     @GetMapping("/equipment")
@@ -53,9 +83,12 @@ public class ConfiguratorController {
     @PostMapping("/configurations")
     public ResponseEntity<Map<String, Object>> saveConfiguration(@RequestBody ConfigurationRequest request) {
         Configuration config = service.saveConfiguration(
+                request.carModelId,
                 request.engineId,
                 request.paintId,
-                request.wheelId,
+                request.wheelDesignId,
+                request.wheelColorId,
+                request.caliperColorId,
                 request.equipmentIds
         );
         
@@ -79,43 +112,6 @@ public class ConfiguratorController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/configurations/{id}/price")
-    public ResponseEntity<Map<String, BigDecimal>> calculatePrice(
-            @PathVariable String id,
-            @RequestBody(required = false) PriceCalculationRequest request) {
-        
-        if (request != null) {
-            Configuration tempConfig = new Configuration();
-            if (request.engineId != null) {
-                tempConfig.setEngine(service.getAllEngines().stream()
-                        .filter(e -> e.getId().equals(request.engineId))
-                        .findFirst().orElse(null));
-            }
-            if (request.paintId != null) {
-                tempConfig.setPaint(service.getAllPaints().stream()
-                        .filter(p -> p.getId().equals(request.paintId))
-                        .findFirst().orElse(null));
-            }
-            if (request.wheelId != null) {
-                tempConfig.setWheel(service.getAllWheels().stream()
-                        .filter(w -> w.getId().equals(request.wheelId))
-                        .findFirst().orElse(null));
-            }
-            
-            Map<String, BigDecimal> response = new HashMap<>();
-            response.put("totalPrice", service.calculateTotalPrice(tempConfig));
-            return ResponseEntity.ok(response);
-        }
-        
-        return service.getConfiguration(id)
-                .map(config -> {
-                    Map<String, BigDecimal> response = new HashMap<>();
-                    response.put("totalPrice", service.calculateTotalPrice(config));
-                    return ResponseEntity.ok(response);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
-
     @PostMapping("/orders")
     public ResponseEntity<Order> createOrder(@RequestBody OrderRequest request) {
         Order order = service.createOrder(
@@ -127,16 +123,12 @@ public class ConfiguratorController {
     }
 
     public static class ConfigurationRequest {
+        public Integer carModelId;
         public Integer engineId;
         public Integer paintId;
-        public Integer wheelId;
-        public List<Integer> equipmentIds;
-    }
-
-    public static class PriceCalculationRequest {
-        public Integer engineId;
-        public Integer paintId;
-        public Integer wheelId;
+        public Integer wheelDesignId;
+        public Integer wheelColorId;
+        public Integer caliperColorId;
         public List<Integer> equipmentIds;
     }
 

@@ -12,6 +12,10 @@ public class Configuration {
     private String id;
 
     @ManyToOne
+    @JoinColumn(name = "car_model_id")
+    private CarModel carModel;
+
+    @ManyToOne
     @JoinColumn(name = "engine_id")
     private EngineOption engine;
 
@@ -20,8 +24,16 @@ public class Configuration {
     private PaintOption paint;
 
     @ManyToOne
-    @JoinColumn(name = "wheel_id")
-    private WheelOption wheel;
+    @JoinColumn(name = "wheel_design_id")
+    private WheelDesign wheelDesign;
+
+    @ManyToOne
+    @JoinColumn(name = "wheel_color_id")
+    private WheelColor wheelColor;
+
+    @ManyToOne
+    @JoinColumn(name = "caliper_color_id")
+    private CaliperColor caliperColor;
 
     @ManyToMany
     @JoinTable(
@@ -41,12 +53,18 @@ public class Configuration {
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
+    public CarModel getCarModel() { return carModel; }
+    public void setCarModel(CarModel carModel) { this.carModel = carModel; }
     public EngineOption getEngine() { return engine; }
     public void setEngine(EngineOption engine) { this.engine = engine; }
     public PaintOption getPaint() { return paint; }
     public void setPaint(PaintOption paint) { this.paint = paint; }
-    public WheelOption getWheel() { return wheel; }
-    public void setWheel(WheelOption wheel) { this.wheel = wheel; }
+    public WheelDesign getWheelDesign() { return wheelDesign; }
+    public void setWheelDesign(WheelDesign wheelDesign) { this.wheelDesign = wheelDesign; }
+    public WheelColor getWheelColor() { return wheelColor; }
+    public void setWheelColor(WheelColor wheelColor) { this.wheelColor = wheelColor; }
+    public CaliperColor getCaliperColor() { return caliperColor; }
+    public void setCaliperColor(CaliperColor caliperColor) { this.caliperColor = caliperColor; }
     public Set<SpecialEquipment> getEquipment() { return equipment; }
     public void setEquipment(Set<SpecialEquipment> equipment) { this.equipment = equipment; }
     public LocalDateTime getCreatedAt() { return createdAt; }

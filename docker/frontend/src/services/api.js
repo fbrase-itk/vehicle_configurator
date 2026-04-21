@@ -5,6 +5,11 @@ export async function fetchOptions() {
   return response.json()
 }
 
+export async function fetchEnginesForModel(carModelId) {
+  const response = await fetch(`${API_BASE}/car-models/${carModelId}/engines`)
+  return response.json()
+}
+
 export async function saveConfiguration(config) {
   const response = await fetch(`${API_BASE}/configurations`, {
     method: 'POST',

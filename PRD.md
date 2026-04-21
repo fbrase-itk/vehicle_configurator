@@ -72,3 +72,5 @@ vehicle-configurator/
 ## Tasks
 
 - Task-1: Implement the project with frontend in Vue.js and database MySQL and do a minimal version first
+
+- Task-2: Can you integrate Three.js to render the car and get a nice model (e.g. the Ferrari) for this pupose 
