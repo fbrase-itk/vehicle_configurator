@@ -6,17 +6,20 @@
     <template v-else>
       <div class="summary-content">
         <h2>Your Configuration</h2>
-        
-        <CarPreview3D 
-          :paintColor="config.paint?.colorCode || '#BF0012'"
-          :paintName="config.paint?.name"
-          :wheelColor="config.wheelColor?.colorCode || '#000000'"
-          :wheelDesign="config.wheelDesign?.modelObject || 'Obj_Rim_T0A'"
-          :caliperColor="config.caliperColor?.colorCode || '#990000'"
-          :modelUrl="config.carModel?.modelFile || '/models/aventador.glb'"
-        />
-        
-        <div class="config-details">
+
+        <div class="config-layout">
+          <div class="preview-col">
+            <CarPreview3D
+              :paintColor="config.paint?.colorCode || '#BF0012'"
+              :paintName="config.paint?.name"
+              :wheelColor="config.wheelColor?.colorCode || '#000000'"
+              :wheelDesign="config.wheelDesign?.modelObject || 'Obj_Rim_T0A'"
+              :caliperColor="config.caliperColor?.colorCode || '#990000'"
+              :modelUrl="config.carModel?.modelFile || '/models/aventador.glb'"
+            />
+          </div>
+
+          <div class="config-details">
           <div class="detail-row model-row">
             <span class="label">Model</span>
             <span class="value">{{ config.carModel?.brand }} {{ config.carModel?.name }}</span>
@@ -74,6 +77,7 @@
           <div class="total-row">
             <span class="label">Total</span>
             <span class="total-price">{{ formatPrice(totalPrice) }}</span>
+          </div>
           </div>
         </div>
 
@@ -168,8 +172,33 @@ export default {
 
 <style scoped>
 .summary {
-  max-width: 700px;
+  max-width: 1600px;
   margin: 0 auto;
+}
+
+.config-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+
+.preview-col {
+  height: 540px;
+}
+
+.share-link,
+.order-form,
+.order-success {
+  max-width: 700px;
+}
+
+@media (max-width: 900px) {
+  .config-layout {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
 }
 
 .loading, .error {
@@ -225,9 +254,10 @@ export default {
 
 .model-row {
   background: rgba(124, 58, 237, 0.1);
-  margin: -0.75rem -1rem 0;
   padding: 0.75rem 1rem;
-  border-radius: 8px 8px 0 0;
+  border-radius: 8px;
+  border-bottom: none;
+  margin-bottom: 0.25rem;
 }
 
 .base-price {

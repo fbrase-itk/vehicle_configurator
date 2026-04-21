@@ -29,10 +29,10 @@ body {
 }
 
 header {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+  background: #16213e;
   padding: 0.85rem 2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -61,7 +61,7 @@ header h1 {
 
 main {
   padding: 2rem;
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 </style>

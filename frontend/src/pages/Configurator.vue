@@ -9,8 +9,14 @@
           <button
             v-for="step in steps"
             :key="step.id"
-            :class="['step-btn', { active: currentStep === step.id, completed: isStepCompleted(step.id) }]"
-            @click="currentStep = step.id"
+            :class="['step-btn', {
+              active: currentStep === step.id,
+              completed: isStepCompleted(step.id),
+              locked: !isStepAvailable(step.id)
+            }]"
+            :disabled="!isStepAvailable(step.id)"
+            :title="isStepAvailable(step.id) ? '' : 'Complete the previous step first'"
+            @click="goToStep(step.id)"
           >
             {{ step.label }}
           </button>
@@ -172,6 +178,28 @@
             </div>
           </div>
         </div>
+
+        <!-- Step footer: Back / Next navigation -->
+        <div class="step-footer">
+          <button
+            v-if="prevStep"
+            @click="goToPrevStep"
+            class="btn-secondary"
+          >
+            ← Back: {{ prevStep.label }}
+          </button>
+          <span v-else class="step-footer-spacer"></span>
+
+          <button
+            v-if="nextStep"
+            @click="goToNextStep"
+            class="btn-primary step-next"
+            :disabled="!isStepCompleted(currentStep)"
+            :title="isStepCompleted(currentStep) ? '' : 'Complete this step to proceed'"
+          >
+            Next: {{ nextStep.label }} →
+          </button>
+        </div>
       </section>
     </template>
   </div>
@@ -245,6 +273,17 @@ export default {
     isValid() {
       return this.selected.carModelId && this.selected.engineId && this.selected.paintId && 
              this.selected.wheelDesignId && this.selected.wheelColorId && this.selected.caliperColorId
+    },
+    currentStepIndex() {
+      return this.steps.findIndex(s => s.id === this.currentStep)
+    },
+    prevStep() {
+      return this.currentStepIndex > 0 ? this.steps[this.currentStepIndex - 1] : null
+    },
+    nextStep() {
+      return this.currentStepIndex < this.steps.length - 1
+        ? this.steps[this.currentStepIndex + 1]
+        : null
     }
   },
   async mounted() {
@@ -278,11 +317,29 @@ export default {
     },
     isStepCompleted(stepId) {
       switch (stepId) {
-        case 'model': return this.selected.carModelId && this.selected.engineId
-        case 'paint': return this.selected.paintId !== null
-        case 'wheels': return this.selected.wheelDesignId && this.selected.wheelColorId && this.selected.caliperColorId
-        case 'equipment': return true
+        case 'model': return !!(this.selected.carModelId && this.selected.engineId)
+        case 'paint': return !!this.selected.paintId
+        case 'wheels': return !!(this.selected.wheelDesignId && this.selected.wheelColorId && this.selected.caliperColorId)
+        case 'equipment': return this.selected.equipmentIds.length > 0
         default: return false
+      }
+    },
+    isStepAvailable(stepId) {
+      const idx = this.steps.findIndex(s => s.id === stepId)
+      if (idx <= 0) return true
+      return this.steps.slice(0, idx).every(s => this.isStepCompleted(s.id))
+    },
+    goToStep(stepId) {
+      if (this.isStepAvailable(stepId)) {
+        this.currentStep = stepId
+      }
+    },
+    goToPrevStep() {
+      if (this.prevStep) this.currentStep = this.prevStep.id
+    },
+    goToNextStep() {
+      if (this.nextStep && this.isStepCompleted(this.currentStep)) {
+        this.currentStep = this.nextStep.id
       }
     },
     async selectCarModel(id) {
@@ -341,7 +398,7 @@ export default {
   transition: all 0.2s ease;
 }
 
-.step-btn:hover {
+.step-btn:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.9);
 }
@@ -360,6 +417,18 @@ export default {
 .step-btn.completed::after {
   content: ' ✓';
   color: #4ade80;
+}
+
+.step-btn.locked,
+.step-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+
+.step-btn.locked::before {
+  content: '🔒 ';
+  font-size: 0.8em;
 }
 
 /* Header price pill */
@@ -413,8 +482,47 @@ export default {
 
 /* Preview (now full width below the header) */
 .preview-section {
-  min-height: 350px;
-  margin-bottom: 1.5rem;
+  height: 380px;
+  max-width: 1100px;
+  margin: 0 auto 1.5rem;
+}
+
+/* Step footer — Back/Next navigation inside the options card */
+.step-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.step-footer-spacer {
+  display: inline-block;
+}
+
+.btn-secondary {
+  padding: 0.6rem 1.2rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.step-next {
+  margin-left: auto;
 }
 
 /* Options Section */

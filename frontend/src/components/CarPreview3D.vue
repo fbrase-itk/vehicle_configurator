@@ -5,12 +5,6 @@
       <span>Loading 3D Model...</span>
     </div>
     <canvas ref="canvas"></canvas>
-    <div class="controls-hint">
-      <span>🖱️ Drag to rotate • Scroll to zoom</span>
-    </div>
-    <div class="preview-label">
-      <span v-if="paintName">{{ paintName }}</span>
-    </div>
   </div>
 </template>
 
@@ -79,9 +73,18 @@ export default {
     this.loadCarModel()
     this.animate()
     window.addEventListener('resize', this.onResize)
+
+    if (typeof ResizeObserver !== 'undefined') {
+      this.resizeObserver = new ResizeObserver(() => this.onResize())
+      this.resizeObserver.observe(this.$refs.container)
+    }
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.onResize)
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect()
+      this.resizeObserver = null
+    }
     if (this.animationId) {
       cancelAnimationFrame(this.animationId)
     }
@@ -96,13 +99,13 @@ export default {
     initScene() {
       const container = this.$refs.container
       const canvas = this.$refs.canvas
-      const width = container.clientWidth
-      const height = 400
+      const width = container.clientWidth || 800
+      const height = container.clientHeight || 400
 
       this.scene = new THREE.Scene()
 
       this.camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000)
-      this.camera.position.set(-0.2, 0.5, 0)  // Right side of car, 1.6 units from target
+      this.camera.position.set(0.7, 0.5, 0)  // Right side of car, 2.5 units from target (= maxDistance)
 
       this.renderer = new THREE.WebGLRenderer({ 
         canvas, 
@@ -795,9 +798,10 @@ export default {
     },
 
     onResize() {
-      if (!this.$refs.container) return
-      const width = this.$refs.container.clientWidth
-      const height = 400
+      if (!this.$refs.container || !this.camera || !this.renderer) return
+      const width = this.$refs.container.clientWidth || 800
+      const height = this.$refs.container.clientHeight || 400
+      if (width === 0 || height === 0) return
       this.camera.aspect = width / height
       this.camera.updateProjectionMatrix()
       this.renderer.setSize(width, height)
@@ -824,12 +828,14 @@ export default {
   overflow: hidden;
   margin-bottom: 2rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: 200px;
+  height: 100%;
 }
 
 canvas {
   display: block;
   width: 100%;
-  height: 400px;
+  height: 100%;
 }
 
 .loading-overlay {
@@ -861,29 +867,4 @@ canvas {
   to { transform: rotate(360deg); }
 }
 
-.controls-hint {
-  position: absolute;
-  bottom: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.6);
-  pointer-events: none;
-}
-
-.preview-label {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.8);
-  background: rgba(0, 0, 0, 0.3);
-  padding: 0.25rem 1rem;
-  border-radius: 12px;
-}
 </style>
