@@ -1,13 +1,14 @@
 services:
   database:
-    image: mysql:8.4
+    # Self-contained image that bakes in database/init/*.sql, so this
+    # compose file works on any host without a repo checkout.
+    image: ghcr.io/fbrase-itk/vehicle_configurator-database:${DATABASE_TAG:-latest}
     container_name: configurator-db
     env_file:
       - ./env/database.env
     ports:
       - "3306:3306"
     volumes:
-      - ../database/init:/docker-entrypoint-initdb.d:ro
       - db-data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]

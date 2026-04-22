@@ -14,6 +14,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_BACKEND: ${{ github.repository }}-backend
   IMAGE_FRONTEND: ${{ github.repository }}-frontend
+  IMAGE_DATABASE: ${{ github.repository }}-database
 
 jobs:
   publish:
@@ -31,6 +32,10 @@ jobs:
             context: frontend
             dockerfile: docker/frontend/Dockerfile
             image_env: IMAGE_FRONTEND
+          - component: database
+            context: database
+            dockerfile: docker/database/Dockerfile
+            image_env: IMAGE_DATABASE
     steps:
       - name: Checkout
         uses: actions/checkout@v4
