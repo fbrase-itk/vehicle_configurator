@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "vue": "^3.4.0",
-    "vue-router": "^4.2.5",
+    "vue-router": "^5.0.5",
     "three": "^0.170.0"
   },
   "devDependencies": {
