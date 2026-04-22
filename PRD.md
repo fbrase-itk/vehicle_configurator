@@ -83,3 +83,4 @@ vehicle-configurator/
 
 - Task-1: Implement the project with frontend in Vue.js and database MySQL and do a minimal version first
 - Task-2: Can you integrate Three.js to render the car and get a nice model (e.g. the Ferrari) for this pupose 
+- Task-3: The repo is moved to github (c.f. "git remote -v") - Can you add a Github Actions based workflow for CI/CD integration ?
