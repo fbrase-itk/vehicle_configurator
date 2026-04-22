@@ -18,6 +18,26 @@ ENV_DOMAIN=$(az containerapp env show \
   --query properties.defaultDomain -o tsv)
 BACKEND_INTERNAL_FQDN="${APP_BACKEND}.internal.${ENV_DOMAIN}"
 
+# Force a new revision on every run.
+#
+# `az containerapp update --image ...:latest` is a no-op when every
+# template field is textually identical to the current revision - even
+# if the :latest tag on GHCR now points to a different image digest.
+# ACA only re-pulls when *something* in the template changes. Without
+# this, a rebuild that only changes the image contents (e.g. a CSS-only
+# frontend change) silently fails to roll out.
+#
+# Passing a unique --revision-suffix guarantees a new revision name,
+# which forces ACA to pull the current :latest. In CI we use the short
+# commit SHA so the revision name is traceable back to a git commit;
+# locally we fall back to a timestamp.
+if [ -n "${GITHUB_SHA:-}" ]; then
+  REV_SUFFIX="sha-${GITHUB_SHA:0:7}"
+else
+  REV_SUFFIX="r$(date +%Y%m%d-%H%M%S)"
+fi
+echo ">>> Revision suffix: $REV_SUFFIX"
+
 for pair in \
   "$APP_DATABASE $IMAGE_DATABASE" \
   "$APP_BACKEND  $IMAGE_BACKEND"  \
@@ -31,6 +51,7 @@ for pair in \
       --name "$APP" \
       --resource-group "$AZ_RESOURCE_GROUP" \
       --image "$IMG" \
+      --revision-suffix "$REV_SUFFIX" \
       --set-env-vars "BACKEND_UPSTREAM=${BACKEND_INTERNAL_FQDN}" \
       --output none
   else
@@ -38,6 +59,7 @@ for pair in \
       --name "$APP" \
       --resource-group "$AZ_RESOURCE_GROUP" \
       --image "$IMG" \
+      --revision-suffix "$REV_SUFFIX" \
       --output none
   fi
 done
