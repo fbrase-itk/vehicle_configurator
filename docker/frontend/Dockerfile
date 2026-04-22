@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Stage 4: production runtime (used by docker/compose.prod.yml and ghcr.io image)
-FROM nginx:1.27-alpine AS prod
+FROM nginx:1.29-alpine AS prod
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Remove the config that ships with the nginx image so our template wins.
