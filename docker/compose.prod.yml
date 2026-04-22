@@ -16,9 +16,7 @@ services:
       retries: 5
 
   backend:
-    build:
-      context: ../backend
-      dockerfile: ../docker/backend/Dockerfile
+    image: ghcr.io/fbrase-itk/vehicle_configurator-backend:${BACKEND_TAG:-latest}
     container_name: configurator-backend
     env_file:
       - ./env/backend.env
@@ -27,22 +25,19 @@ services:
     depends_on:
       database:
         condition: service_healthy
+    restart: unless-stopped
 
   frontend:
-    build:
-      context: ../frontend
-      dockerfile: ../docker/frontend/Dockerfile
-      target: dev
+    image: ghcr.io/fbrase-itk/vehicle_configurator-frontend:${FRONTEND_TAG:-latest}
     container_name: configurator-frontend
     env_file:
       - ./env/frontend.env
+    # Published image serves the compiled Vue app via nginx on port 80.
     ports:
-      - "5173:5173"
-    volumes:
-      - ../frontend:/app
-      - /app/node_modules
+      - "5173:80"
     depends_on:
       - backend
+    restart: unless-stopped
 
 volumes:
   db-data:
