@@ -79,8 +79,28 @@ vehicle-configurator/
 ├── .gitignore
 └── .env
 ```
+
+## Prefered Colors
+
+- the button with gradiant color from blue to lila look really nice
+- Colors known to work together well
+```
+    APP_BACKGROUND_COLOR = "#DDF3FE";           // Light blue background
+    DARKER_BLUE_BACKGROUND_COLOR = "#A7E2FF";  // light blue
+    MENU_BACKGROUND_COLOR = "#000233";          // Dark navy menu background
+    DEEP_BLUE_BUTTON_COLOR = "#0049B0";        // deep blue
+    WHITE_TOGGLE_BUTTON_COLOR = "#FFFFFF";     // white
+    ICON_ACTIVE_BACKGROUND_COLOR = "#2980b9";   // blue
+    STATUS_OK_COLOR = "#00FF01";               // Bright green for status
+    GREEN_DARK_COLOR = "#27ae60";
+    RED_CHART_COLOR = "#e74c3c";
+```
+
+
 ## Tasks
 
 - Task-1: Implement the project with frontend in Vue.js and database MySQL and do a minimal version first
 - Task-2: Can you integrate Three.js to render the car and get a nice model (e.g. the Ferrari) for this pupose 
 - Task-3: The repo is moved to github (c.f. "git remote -v") - Can you add a Github Actions based workflow for CI/CD integration ?
+- Task-4: Can you create an azure directory and create scripts for setup and tear down ?
+- Task-5: Can you adjust the frontend to my prefered colors ?
