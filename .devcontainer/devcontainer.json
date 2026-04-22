@@ -1,0 +1,45 @@
+{
+  "name": "Vehicle Configurator (demo via GHCR)",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "4gb",
+    "storage": "32gb"
+  },
+
+  "forwardPorts": [5173, 8080, 3306],
+  "portsAttributes": {
+    "5173": {
+      "label": "Frontend (Vue + nginx)",
+      "visibility": "public",
+      "onAutoForward": "openPreview",
+      "protocol": "http"
+    },
+    "8080": {
+      "label": "Backend API (internal)",
+      "onAutoForward": "silent",
+      "protocol": "http"
+    },
+    "3306": {
+      "label": "MySQL (internal)",
+      "onAutoForward": "ignore"
+    }
+  },
+
+  "postCreateCommand": "docker compose -f docker/compose.prod.yml pull",
+  "postStartCommand": "bash .devcontainer/post-start.sh",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Vue.volar",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  }
+}
