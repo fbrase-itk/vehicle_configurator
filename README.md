@@ -1,5 +1,8 @@
 # Vehicle Configurator
 
+[![CI](https://github.com/fbrase-itk/vehicle_configurator/actions/workflows/ci.yml/badge.svg)](https://github.com/fbrase-itk/vehicle_configurator/actions/workflows/ci.yml)
+[![Publish Docker images](https://github.com/fbrase-itk/vehicle_configurator/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/fbrase-itk/vehicle_configurator/actions/workflows/docker-publish.yml)
+
 A web application for configuring vehicles with engine, paint, wheels, and special equipment options.
 
 ## Tech Stack
@@ -45,6 +48,21 @@ The application will be available at:
 - Order submission with customer details
 - Responsive design
 - Max 5 special equipment items per configuration
+
+## CI/CD
+
+Automated pipelines run on GitHub Actions.
+
+- **`ci.yml`** — on every push and pull request:
+  - Backend: Java 25 (Temurin) + `mvn verify`
+  - Frontend: Node 22 + `npm run build`
+  - Integration: spins up `database` + `backend` via `docker compose`, smoke-tests every REST endpoint
+- **`docker-publish.yml`** — on push to `main` and `v*.*.*` tags:
+  - Builds and pushes both images to GitHub Container Registry:
+    - `ghcr.io/fbrase-itk/vehicle_configurator-backend`
+    - `ghcr.io/fbrase-itk/vehicle_configurator-frontend`
+  - Tags: `latest` (main), short SHA, branch name, semver on tag pushes
+- **`dependabot.yml`** — weekly updates for Maven, npm, Docker base images, and GitHub Actions
 
 ## Project Structure
 
