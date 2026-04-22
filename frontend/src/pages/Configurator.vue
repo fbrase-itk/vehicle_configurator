@@ -377,10 +377,10 @@ export default {
   text-align: center;
   padding: 4rem;
   font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-muted);
 }
 
-/* Step Navigation — embedded in the app header */
+/* Step Navigation — embedded in the (dark) app header */
 .step-nav {
   display: flex;
   gap: 0.4rem;
@@ -389,39 +389,39 @@ export default {
 
 .step-btn {
   padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-on-dark);
   border-radius: 8px;
-  color: rgba(255, 255, 255, 0.65);
+  color: var(--color-text-on-dark-mute);
   font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .step-btn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-white);
 }
 
 .step-btn.active {
-  background: linear-gradient(90deg, rgba(0, 212, 255, 0.2), rgba(124, 58, 237, 0.2));
-  border-color: #00d4ff;
-  color: #fff;
+  background: var(--gradient-primary-soft);
+  border-color: var(--color-icon-active);
+  color: var(--color-white);
 }
 
 .step-btn.completed {
-  border-color: rgba(74, 222, 128, 0.5);
-  color: rgba(255, 255, 255, 0.85);
+  border-color: rgba(39, 174, 96, 0.55);
+  color: var(--color-white);
 }
 
 .step-btn.completed::after {
   content: ' ✓';
-  color: #4ade80;
+  color: var(--color-green-dark);
 }
 
 .step-btn.locked,
 .step-btn:disabled {
-  opacity: 0.35;
+  opacity: 0.4;
   cursor: not-allowed;
   border-style: dashed;
 }
@@ -438,7 +438,7 @@ export default {
   align-items: flex-end;
   line-height: 1.1;
   padding: 0 0.5rem;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid var(--border-on-dark);
   margin-left: 0.25rem;
 }
 
@@ -446,33 +446,35 @@ export default {
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-on-dark-mute);
 }
 
 .header-price-value {
   font-size: 1.05rem;
   font-weight: 700;
-  background: linear-gradient(90deg, #00d4ff, #7c3aed);
+  background: var(--gradient-primary-on-dark);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Continue button (header variant) */
+/* Primary CTA (header variant): deep blue → lila gradient */
 .btn-primary {
   padding: 0.6rem 1.2rem;
-  background: linear-gradient(90deg, #00d4ff, #7c3aed);
+  background: var(--gradient-primary);
   border: none;
   border-radius: 8px;
-  color: #fff;
+  color: var(--color-white);
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s, opacity 0.2s;
+  transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
   white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 73, 176, 0.35);
 }
 
 .btn-primary:hover:not(:disabled) {
   transform: scale(1.03);
+  box-shadow: 0 4px 14px rgba(0, 73, 176, 0.45);
 }
 
 .btn-primary:disabled {
@@ -480,7 +482,7 @@ export default {
   cursor: not-allowed;
 }
 
-/* Preview (now full width below the header) */
+/* Preview (full width below the header) */
 .preview-section {
   height: 380px;
   max-width: 1100px;
@@ -495,7 +497,7 @@ export default {
   gap: 1rem;
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--border-subtle);
 }
 
 .step-footer-spacer {
@@ -504,10 +506,10 @@ export default {
 
 .btn-secondary {
   padding: 0.6rem 1.2rem;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--color-white);
+  border: 1px solid var(--border-strong);
   border-radius: 8px;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-button-blue);
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
@@ -516,33 +518,34 @@ export default {
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.3);
-  color: #fff;
+  background: var(--surface-card-hover);
+  border-color: var(--color-button-blue);
+  color: var(--color-button-blue);
 }
 
 .step-next {
   margin-left: auto;
 }
 
-/* Options Section */
+/* Options Section (the card that holds each step's controls) */
 .options-section {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface-card);
   border-radius: 16px;
   padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
 }
 
 .step-content h3 {
   font-size: 1.1rem;
   margin-bottom: 1rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text);
 }
 
 .step-content h3 .hint {
   font-size: 0.85rem;
   font-weight: normal;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-muted);
 }
 
 /* Step Grid (for Model/Engine) */
@@ -555,7 +558,7 @@ export default {
 .step-column h3 {
   font-size: 1rem;
   margin-bottom: 0.75rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-muted);
 }
 
 /* Options List */
@@ -579,21 +582,23 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-app-bg);
   border: 2px solid transparent;
   border-radius: 10px;
   padding: 1rem 1.25rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  color: var(--color-text);
 }
 
 .option-card:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-card-hover);
+  border-color: var(--border-subtle);
 }
 
 .option-card.selected {
-  border-color: #00d4ff;
-  background: rgba(0, 212, 255, 0.1);
+  border-color: var(--border-selected);
+  background: var(--surface-selected-soft);
 }
 
 .option-card.disabled {
@@ -605,18 +610,19 @@ export default {
   font-size: 0.95rem;
   font-weight: 600;
   margin-bottom: 0.25rem;
+  color: var(--color-text);
 }
 
 .option-info p {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-muted);
   margin: 0;
 }
 
 .option-card .price {
   font-size: 0.9rem;
-  color: #a78bfa;
-  font-weight: 500;
+  color: var(--color-button-blue);
+  font-weight: 600;
   white-space: nowrap;
 }
 
@@ -632,22 +638,24 @@ export default {
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-app-bg);
   border: 2px solid transparent;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
   min-width: 120px;
+  color: var(--color-text);
 }
 
 .color-card:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-card-hover);
   transform: translateY(-2px);
+  border-color: var(--border-subtle);
 }
 
 .color-card.selected {
-  border-color: #00d4ff;
-  background: rgba(0, 212, 255, 0.1);
+  border-color: var(--border-selected);
+  background: var(--surface-selected-soft);
 }
 
 .color-swatch {
@@ -655,12 +663,12 @@ export default {
   height: 50px;
   border-radius: 50%;
   margin-bottom: 0.75rem;
-  border: 3px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 3px solid var(--color-white);
+  box-shadow: 0 2px 8px rgba(0, 36, 80, 0.25);
 }
 
 .color-card.selected .color-swatch {
-  border-color: #00d4ff;
+  border-color: var(--border-selected);
 }
 
 .color-name {
@@ -668,11 +676,12 @@ export default {
   font-weight: 500;
   margin-bottom: 0.25rem;
   text-align: center;
+  color: var(--color-text);
 }
 
 .color-card .price {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-muted);
 }
 
 /* Wheels Section */
@@ -685,7 +694,7 @@ export default {
 .wheel-section h3 {
   font-size: 1rem;
   margin-bottom: 0.75rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text);
 }
 
 .design-options {
@@ -699,30 +708,34 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.25rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-app-bg);
   border: 2px solid transparent;
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
+  color: var(--color-text);
 }
 
 .design-card:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-card-hover);
+  border-color: var(--border-subtle);
 }
 
 .design-card.selected {
-  border-color: #00d4ff;
-  background: rgba(0, 212, 255, 0.1);
+  border-color: var(--border-selected);
+  background: var(--surface-selected-soft);
 }
 
 .design-card h4 {
   font-size: 0.95rem;
   font-weight: 600;
+  color: var(--color-text);
 }
 
 .design-card .price {
   font-size: 0.85rem;
-  color: #a78bfa;
+  color: var(--color-button-blue);
+  font-weight: 600;
 }
 
 .color-options.compact {

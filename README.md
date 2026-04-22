@@ -49,6 +49,62 @@ The application will be available at:
 - Responsive design
 - Max 5 special equipment items per configuration
 
+## Theme & Design Tokens
+
+The frontend uses a light-blue theme derived from the palette in [PRD.md → Prefered Colors](PRD.md#prefered-colors). All colors are defined once as CSS custom properties in the `:root` block of `frontend/src/App.vue` and consumed everywhere else via `var(--token-name)`. To retheme the app, edit that one block.
+
+**Raw palette** (named after the PRD wishes)
+
+```css
+--color-app-bg:      #DDF3FE;  /* light blue page background         */
+--color-app-bg-2:    #A7E2FF;  /* darker light blue, accent tint     */
+--color-menu-bg:     #000233;  /* dark navy header / menu            */
+--color-button-blue: #0049B0;  /* deep blue CTA                      */
+--color-white:       #FFFFFF;
+--color-icon-active: #2980b9;  /* active/icon blue                   */
+--color-status-ok:   #00FF01;  /* bright green status dot            */
+--color-green-dark:  #27ae60;  /* success UI (checkmarks, success h) */
+--color-red:         #e74c3c;  /* error / destructive                */
+--color-lila:        #7c3aed;  /* gradient companion for button-blue */
+```
+
+**Semantic tokens** (derived — what component styles actually reference)
+
+```css
+--color-text:              #0F172A;   /* body text on light surfaces */
+--color-text-muted:        #475569;   /* secondary text, hints       */
+--color-text-on-dark:      #FFFFFF;
+--color-text-on-dark-mute: rgba(255, 255, 255, 0.72);
+
+--surface-card:            #FFFFFF;   /* option cards, summary panel */
+--surface-card-hover:      #F1F9FF;
+--surface-selected:        #A7E2FF;
+--surface-selected-soft:   rgba(167, 226, 255, 0.45);
+
+--border-subtle:           rgba(0, 36, 80, 0.10);
+--border-strong:           rgba(0, 36, 80, 0.22);
+--border-selected:         #0049B0;
+--border-on-dark:          rgba(255, 255, 255, 0.12);
+
+--shadow-card:             0 2px 8px rgba(0, 36, 80, 0.08);
+--shadow-card-hover:       0 6px 20px rgba(0, 36, 80, 0.15);
+--shadow-header:           0 2px 14px rgba(0, 2, 51, 0.35);
+```
+
+**Gradients**
+
+```css
+/* deep-blue → lila, for light surfaces (cards, page body) */
+--gradient-primary:         linear-gradient(90deg, #0049B0, #7c3aed);
+--gradient-primary-soft:    linear-gradient(90deg,
+                              rgba(0, 73, 176, 0.18),
+                              rgba(124, 58, 237, 0.18));
+
+/* lighter variant for elements on the dark navy header,
+   where the deep blue would otherwise blend into the background */
+--gradient-primary-on-dark: linear-gradient(90deg, #A7E2FF, #B79CFF);
+```
+
 ## CI/CD
 
 Automated pipelines run on GitHub Actions.

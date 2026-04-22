@@ -821,13 +821,16 @@ export default {
 </script>
 
 <style scoped>
+/* The 3D preview panel stays dark — the navy menu color frames the
+   car nicely against the light page background and HDR sky. */
 .car-preview-3d {
   position: relative;
-  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  background: linear-gradient(180deg, var(--color-menu-bg) 0%, #001566 100%);
   border-radius: 16px;
   overflow: hidden;
   margin-bottom: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
   min-height: 200px;
   height: 100%;
 }
@@ -848,17 +851,17 @@ canvas {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(26, 26, 46, 0.9);
+  background: rgba(0, 2, 51, 0.88);
   z-index: 10;
   gap: 1rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-on-dark-mute);
 }
 
 .spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid rgba(255, 255, 255, 0.1);
-  border-top-color: #00d4ff;
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  border-top-color: var(--color-icon-active);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

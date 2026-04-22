@@ -205,21 +205,22 @@ export default {
   text-align: center;
   padding: 4rem;
   font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-muted);
 }
 
 .summary-content {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+  background: var(--surface-card);
   border-radius: 16px;
   padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+  color: var(--color-text);
 }
 
 .summary-content h2 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  background: linear-gradient(90deg, #00d4ff, #7c3aed);
+  background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -233,12 +234,12 @@ export default {
   grid-template-columns: 100px 1fr auto;
   gap: 1rem;
   padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--border-subtle);
   align-items: center;
 }
 
 .detail-row .label {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-muted);
   font-size: 0.875rem;
 }
 
@@ -246,14 +247,16 @@ export default {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  color: var(--color-text);
 }
 
 .detail-row .price {
-  color: #a78bfa;
+  color: var(--color-button-blue);
+  font-weight: 600;
 }
 
 .model-row {
-  background: rgba(124, 58, 237, 0.1);
+  background: var(--surface-selected-soft);
   padding: 0.75rem 1rem;
   border-radius: 8px;
   border-bottom: none;
@@ -261,20 +264,20 @@ export default {
 }
 
 .base-price {
-  color: #00d4ff !important;
-  font-weight: 600;
+  color: var(--color-button-blue) !important;
+  font-weight: 700;
 }
 
 .color-dot {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid var(--border-strong);
 }
 
 .equipment-section h3 {
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-muted);
   margin: 1rem 0 0.5rem;
 }
 
@@ -283,17 +286,19 @@ export default {
   justify-content: space-between;
   padding: 1.5rem 0 0;
   margin-top: 0.5rem;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .total-row .label {
   font-size: 1.25rem;
   font-weight: 600;
+  color: var(--color-text);
 }
 
 .total-price {
   font-size: 1.5rem;
   font-weight: 700;
-  background: linear-gradient(90deg, #00d4ff, #7c3aed);
+  background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -305,7 +310,7 @@ export default {
 .share-link label {
   display: block;
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-muted);
   margin-bottom: 0.5rem;
 }
 
@@ -317,30 +322,33 @@ export default {
 .link-box input {
   flex: 1;
   padding: 0.75rem 1rem;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-app-bg);
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
-  color: #fff;
+  color: var(--color-text);
   font-size: 0.875rem;
 }
 
 .btn-copy {
   padding: 0.75rem 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--color-white);
+  border: 1px solid var(--border-strong);
   border-radius: 8px;
-  color: #fff;
+  color: var(--color-button-blue);
   cursor: pointer;
-  transition: background 0.2s;
+  font-weight: 500;
+  transition: all 0.2s;
 }
 
 .btn-copy:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--surface-card-hover);
+  border-color: var(--color-button-blue);
 }
 
 .order-form h3 {
   font-size: 1.25rem;
   margin-bottom: 1rem;
+  color: var(--color-text);
 }
 
 .form-group {
@@ -350,41 +358,45 @@ export default {
 .form-group label {
   display: block;
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-muted);
   margin-bottom: 0.5rem;
 }
 
 .form-group input {
   width: 100%;
   padding: 0.75rem 1rem;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-app-bg);
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
-  color: #fff;
+  color: var(--color-text);
   font-size: 1rem;
+  transition: border-color 0.2s, background 0.2s;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #00d4ff;
+  border-color: var(--color-button-blue);
+  background: var(--color-white);
 }
 
 .btn-primary {
   width: 100%;
   padding: 1rem;
   margin-top: 1rem;
-  background: linear-gradient(90deg, #00d4ff, #7c3aed);
+  background: var(--gradient-primary);
   border: none;
   border-radius: 8px;
-  color: #fff;
+  color: var(--color-white);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s, opacity 0.2s;
+  transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 73, 176, 0.35);
 }
 
 .btn-primary:hover:not(:disabled) {
   transform: scale(1.02);
+  box-shadow: 0 4px 14px rgba(0, 73, 176, 0.45);
 }
 
 .btn-primary:disabled {
@@ -399,27 +411,29 @@ export default {
 
 .order-success h3 {
   font-size: 1.5rem;
-  color: #4ade80;
+  color: var(--color-green-dark);
   margin-bottom: 0.5rem;
 }
 
 .order-success p {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-muted);
   margin-bottom: 1.5rem;
 }
 
 .btn-secondary {
   padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--color-white);
+  border: 1px solid var(--border-strong);
   border-radius: 8px;
-  color: #fff;
+  color: var(--color-button-blue);
   font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--surface-card-hover);
+  border-color: var(--color-button-blue);
 }
 </style>
