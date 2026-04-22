@@ -5,8 +5,8 @@ A web application for configuring vehicles with engine, paint, wheels, and speci
 ## Tech Stack
 
 - **Frontend:** Vue.js 3 with Vite
-- **Backend:** Java 17 with Spring Boot 3.2
-- **Database:** MySQL 8.0
+- **Backend:** Java 25 with Spring Boot 4.0
+- **Database:** MySQL 8.4
 - **Infrastructure:** Docker Compose
 
 ## Quick Start
