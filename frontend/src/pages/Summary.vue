@@ -257,12 +257,12 @@ export default {
   cursor: pointer;
   transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(0, 73, 176, 0.35);
+  box-shadow: 0 2px 8px rgba(15, 138, 43, 0.35);
 }
 
 .header-back:hover:not(:disabled) {
   transform: scale(1.03);
-  box-shadow: 0 4px 14px rgba(0, 73, 176, 0.45);
+  box-shadow: 0 4px 14px rgba(15, 138, 43, 0.45);
 }
 
 .header-back:disabled {
@@ -300,7 +300,7 @@ export default {
 }
 
 .detail-row .price {
-  color: var(--color-button-blue);
+  color: var(--color-button-primary);
   font-weight: 600;
 }
 
@@ -313,7 +313,7 @@ export default {
 }
 
 .base-price {
-  color: var(--color-button-blue) !important;
+  color: var(--color-button-primary) !important;
   font-weight: 700;
 }
 
@@ -383,7 +383,7 @@ export default {
   background: var(--color-white);
   border: 1px solid var(--border-strong);
   border-radius: 8px;
-  color: var(--color-button-blue);
+  color: var(--color-button-primary);
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s;
@@ -391,7 +391,7 @@ export default {
 
 .btn-copy:hover {
   background: var(--surface-card-hover);
-  border-color: var(--color-button-blue);
+  border-color: var(--color-button-primary);
 }
 
 .order-form h3 {
@@ -424,7 +424,7 @@ export default {
 
 .form-group input:focus {
   outline: none;
-  border-color: var(--color-button-blue);
+  border-color: var(--color-button-primary);
   background: var(--color-white);
 }
 
@@ -440,12 +440,12 @@ export default {
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(0, 73, 176, 0.35);
+  box-shadow: 0 2px 8px rgba(15, 138, 43, 0.35);
 }
 
 .btn-primary:hover:not(:disabled) {
   transform: scale(1.02);
-  box-shadow: 0 4px 14px rgba(0, 73, 176, 0.45);
+  box-shadow: 0 4px 14px rgba(15, 138, 43, 0.45);
 }
 
 .btn-primary:disabled {
@@ -474,7 +474,7 @@ export default {
   background: var(--color-white);
   border: 1px solid var(--border-strong);
   border-radius: 8px;
-  color: var(--color-button-blue);
+  color: var(--color-button-primary);
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
@@ -483,6 +483,6 @@ export default {
 
 .btn-secondary:hover {
   background: var(--surface-card-hover);
-  border-color: var(--color-button-blue);
+  border-color: var(--color-button-primary);
 }
 </style>

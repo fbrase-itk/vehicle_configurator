@@ -12,22 +12,22 @@
 
 <style>
 /* ---------------------------------------------------------------- */
-/* Design tokens (from PRD "Prefered Colors")                       */
+/* Design tokens — light-green / dark-green theme                   */
 /* ---------------------------------------------------------------- */
 :root {
-  /* Raw palette names as-defined in PRD */
-  --color-app-bg:            #DDF3FE; /* light blue background */
-  --color-app-bg-2:          #A7E2FF; /* darker light blue */
-  --color-menu-bg:           #000233; /* dark navy menu/header */
-  --color-button-blue:       #0049B0; /* deep blue CTA */
+  /* Raw palette */
+  --color-app-bg:            #E3F9E5; /* light green page background */
+  --color-app-bg-2:          #B0EAB3; /* darker light green accent */
+  --color-menu-bg:           #052E16; /* dark forest header / menu */
+  --color-button-primary:    #0F8A2B; /* emerald CTA */
   --color-white:             #FFFFFF;
-  --color-icon-active:       #2980b9; /* active/icon blue */
-  --color-status-ok:         #00FF01; /* status dot bright green */
-  --color-green-dark:        #27ae60; /* success UI */
-  --color-red:               #e74c3c; /* error / destructive */
+  --color-icon-active:       #2F9E44; /* active/icon green */
+  --color-status-ok:         #00FF01; /* bright lime status dot */
+  --color-green-dark:        #27AE60; /* success UI (checkmarks) */
+  --color-red:               #E74C3C; /* error / destructive */
 
-  /* Lila companion for the "blue → lila" gradient that the PRD likes */
-  --color-lila:              #7c3aed;
+  /* Deep-forest companion for the primary "emerald → forest" gradient */
+  --color-accent-deep:       #14532D;
 
   /* Semantic tokens (derived) — use these in component styles */
   --color-text:              #0F172A;
@@ -36,27 +36,27 @@
   --color-text-on-dark-mute: rgba(255, 255, 255, 0.72);
 
   --surface-card:            var(--color-white);
-  --surface-card-hover:      #F1F9FF;
+  --surface-card-hover:      #F1FBF2;
   --surface-selected:        var(--color-app-bg-2);
-  --surface-selected-soft:   rgba(167, 226, 255, 0.45);
+  --surface-selected-soft:   rgba(176, 234, 179, 0.45);
   --surface-input-dark:      rgba(255, 255, 255, 0.08);
 
-  --border-subtle:           rgba(0, 36, 80, 0.10);
-  --border-strong:           rgba(0, 36, 80, 0.22);
-  --border-selected:         var(--color-button-blue);
+  --border-subtle:           rgba(5, 46, 22, 0.10);
+  --border-strong:           rgba(5, 46, 22, 0.22);
+  --border-selected:         var(--color-button-primary);
   --border-on-dark:          rgba(255, 255, 255, 0.12);
 
-  --shadow-card:             0 2px 8px rgba(0, 36, 80, 0.08);
-  --shadow-card-hover:       0 6px 20px rgba(0, 36, 80, 0.15);
-  --shadow-header:           0 2px 14px rgba(0, 2, 51, 0.35);
+  --shadow-card:             0 2px 8px rgba(5, 46, 22, 0.08);
+  --shadow-card-hover:       0 6px 20px rgba(5, 46, 22, 0.15);
+  --shadow-header:           0 2px 14px rgba(5, 46, 22, 0.35);
 
-  /* Primary gradient: deep blue → lila (PRD preference).
+  /* Primary gradient: emerald → deep forest.
      Use `--gradient-primary` on light surfaces (cards, light body bg)
-     and `--gradient-primary-on-dark` on the dark navy header/menu,
-     where the deep blue would otherwise blend into the background. */
-  --gradient-primary:         linear-gradient(90deg, var(--color-button-blue), var(--color-lila));
-  --gradient-primary-soft:    linear-gradient(90deg, rgba(0, 73, 176, 0.18), rgba(124, 58, 237, 0.18));
-  --gradient-primary-on-dark: linear-gradient(90deg, #A7E2FF, #B79CFF);
+     and `--gradient-primary-on-dark` on the dark forest header/menu,
+     where the emerald would otherwise blend into the background. */
+  --gradient-primary:         linear-gradient(90deg, var(--color-button-primary), var(--color-accent-deep));
+  --gradient-primary-soft:    linear-gradient(90deg, rgba(15, 138, 43, 0.18), rgba(20, 83, 45, 0.18));
+  --gradient-primary-on-dark: linear-gradient(90deg, #B0EAB3, #6EE7B7);
 }
 
 * {

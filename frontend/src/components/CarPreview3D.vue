@@ -851,7 +851,7 @@ canvas {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 2, 51, 0.88);
+  background: rgba(5, 46, 22, 0.88);
   z-index: 10;
   gap: 1rem;
   color: var(--color-text-on-dark-mute);

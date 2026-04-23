@@ -51,21 +51,21 @@ The application will be available at:
 
 ## Theme & Design Tokens
 
-The frontend uses a light-blue theme derived from the palette in [PRD.md → Prefered Colors](PRD.md#prefered-colors). All colors are defined once as CSS custom properties in the `:root` block of `frontend/src/App.vue` and consumed everywhere else via `var(--token-name)`. To retheme the app, edit that one block.
+The frontend uses a light-green / dark-green theme. All colors are defined once as CSS custom properties in the `:root` block of `frontend/src/App.vue` and consumed everywhere else via `var(--token-name)`. To retheme the app, edit that one block.
 
-**Raw palette** (named after the PRD wishes)
+**Raw palette**
 
 ```css
---color-app-bg:      #DDF3FE;  /* light blue page background         */
---color-app-bg-2:    #A7E2FF;  /* darker light blue, accent tint     */
---color-menu-bg:     #000233;  /* dark navy header / menu            */
---color-button-blue: #0049B0;  /* deep blue CTA                      */
---color-white:       #FFFFFF;
---color-icon-active: #2980b9;  /* active/icon blue                   */
---color-status-ok:   #00FF01;  /* bright green status dot            */
---color-green-dark:  #27ae60;  /* success UI (checkmarks, success h) */
---color-red:         #e74c3c;  /* error / destructive                */
---color-lila:        #7c3aed;  /* gradient companion for button-blue */
+--color-app-bg:            #E3F9E5;  /* light green page background         */
+--color-app-bg-2:          #B0EAB3;  /* darker light green, accent tint     */
+--color-menu-bg:           #052E16;  /* dark forest header / menu           */
+--color-button-primary:    #0F8A2B;  /* emerald CTA                         */
+--color-white:             #FFFFFF;
+--color-icon-active:       #2F9E44;  /* active/icon green                   */
+--color-status-ok:         #00FF01;  /* bright lime status dot              */
+--color-green-dark:        #27AE60;  /* success UI (checkmarks, success h)  */
+--color-red:               #E74C3C;  /* error / destructive                 */
+--color-accent-deep:       #14532D;  /* deep-forest gradient companion      */
 ```
 
 **Semantic tokens** (derived — what component styles actually reference)
@@ -77,32 +77,32 @@ The frontend uses a light-blue theme derived from the palette in [PRD.md → Pre
 --color-text-on-dark-mute: rgba(255, 255, 255, 0.72);
 
 --surface-card:            #FFFFFF;   /* option cards, summary panel */
---surface-card-hover:      #F1F9FF;
---surface-selected:        #A7E2FF;
---surface-selected-soft:   rgba(167, 226, 255, 0.45);
+--surface-card-hover:      #F1FBF2;
+--surface-selected:        #B0EAB3;
+--surface-selected-soft:   rgba(176, 234, 179, 0.45);
 
---border-subtle:           rgba(0, 36, 80, 0.10);
---border-strong:           rgba(0, 36, 80, 0.22);
---border-selected:         #0049B0;
+--border-subtle:           rgba(5, 46, 22, 0.10);
+--border-strong:           rgba(5, 46, 22, 0.22);
+--border-selected:         #0F8A2B;
 --border-on-dark:          rgba(255, 255, 255, 0.12);
 
---shadow-card:             0 2px 8px rgba(0, 36, 80, 0.08);
---shadow-card-hover:       0 6px 20px rgba(0, 36, 80, 0.15);
---shadow-header:           0 2px 14px rgba(0, 2, 51, 0.35);
+--shadow-card:             0 2px 8px rgba(5, 46, 22, 0.08);
+--shadow-card-hover:       0 6px 20px rgba(5, 46, 22, 0.15);
+--shadow-header:           0 2px 14px rgba(5, 46, 22, 0.35);
 ```
 
 **Gradients**
 
 ```css
-/* deep-blue → lila, for light surfaces (cards, page body) */
---gradient-primary:         linear-gradient(90deg, #0049B0, #7c3aed);
+/* emerald → deep forest, for light surfaces (cards, page body) */
+--gradient-primary:         linear-gradient(90deg, #0F8A2B, #14532D);
 --gradient-primary-soft:    linear-gradient(90deg,
-                              rgba(0, 73, 176, 0.18),
-                              rgba(124, 58, 237, 0.18));
+                              rgba(15, 138, 43, 0.18),
+                              rgba(20, 83, 45, 0.18));
 
-/* lighter variant for elements on the dark navy header,
-   where the deep blue would otherwise blend into the background */
---gradient-primary-on-dark: linear-gradient(90deg, #A7E2FF, #B79CFF);
+/* lighter variant for elements on the dark forest header,
+   where the emerald would otherwise blend into the background */
+--gradient-primary-on-dark: linear-gradient(90deg, #B0EAB3, #6EE7B7);
 ```
 
 ## Architecture Documentation

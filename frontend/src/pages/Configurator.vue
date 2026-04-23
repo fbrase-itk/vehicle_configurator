@@ -469,12 +469,12 @@ export default {
   cursor: pointer;
   transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(0, 73, 176, 0.35);
+  box-shadow: 0 2px 8px rgba(15, 138, 43, 0.35);
 }
 
 .btn-primary:hover:not(:disabled) {
   transform: scale(1.03);
-  box-shadow: 0 4px 14px rgba(0, 73, 176, 0.45);
+  box-shadow: 0 4px 14px rgba(15, 138, 43, 0.45);
 }
 
 .btn-primary:disabled {
@@ -509,7 +509,7 @@ export default {
   background: var(--color-white);
   border: 1px solid var(--border-strong);
   border-radius: 8px;
-  color: var(--color-button-blue);
+  color: var(--color-button-primary);
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
@@ -519,8 +519,8 @@ export default {
 
 .btn-secondary:hover {
   background: var(--surface-card-hover);
-  border-color: var(--color-button-blue);
-  color: var(--color-button-blue);
+  border-color: var(--color-button-primary);
+  color: var(--color-button-primary);
 }
 
 .step-next {
@@ -621,7 +621,7 @@ export default {
 
 .option-card .price {
   font-size: 0.9rem;
-  color: var(--color-button-blue);
+  color: var(--color-button-primary);
   font-weight: 600;
   white-space: nowrap;
 }
@@ -664,7 +664,7 @@ export default {
   border-radius: 50%;
   margin-bottom: 0.75rem;
   border: 3px solid var(--color-white);
-  box-shadow: 0 2px 8px rgba(0, 36, 80, 0.25);
+  box-shadow: 0 2px 8px rgba(5, 46, 22, 0.25);
 }
 
 .color-card.selected .color-swatch {
@@ -734,7 +734,7 @@ export default {
 
 .design-card .price {
   font-size: 0.85rem;
-  color: var(--color-button-blue);
+  color: var(--color-button-primary);
   font-weight: 600;
 }
 
