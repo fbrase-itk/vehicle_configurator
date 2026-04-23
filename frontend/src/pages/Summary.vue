@@ -4,6 +4,16 @@
     <div v-else-if="!config" class="error">Configuration not found</div>
     
     <template v-else>
+      <Teleport to="#header-actions">
+        <button @click="goBack" class="btn-back header-back" type="button" aria-label="Back to configurator">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span>Back</span>
+        </button>
+      </Teleport>
+
       <div class="summary-content">
         <h2>Your Configuration</h2>
 
@@ -158,6 +168,14 @@ export default {
       this.$refs.shareInput.select()
       document.execCommand('copy')
     },
+    goBack() {
+      const id = this.$route.params.id
+      if (id) {
+        this.$router.push(`/config/${id}`)
+      } else {
+        this.$router.push('/')
+      }
+    },
     async submitOrder() {
       await createOrder({
         configurationId: this.$route.params.id,
@@ -223,6 +241,37 @@ export default {
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.header-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--gradient-primary);
+  border: none;
+  border-radius: 8px;
+  color: var(--color-white);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 73, 176, 0.35);
+}
+
+.header-back:hover:not(:disabled) {
+  transform: scale(1.03);
+  box-shadow: 0 4px 14px rgba(0, 73, 176, 0.45);
+}
+
+.header-back:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.header-back svg {
+  display: block;
 }
 
 .config-details {
