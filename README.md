@@ -109,6 +109,7 @@ The frontend uses a light-blue theme derived from the palette in [PRD.md → Pre
 
 - [**ARCHITECTURE.md**](ARCHITECTURE.md) — short, diagram-first overview (context, component and deployment diagrams, CI/CD pipeline).
 - [**docs/arc42/**](docs/arc42/README.md) — full architecture description following the [arc42](https://arc42.org) template (quality goals, building blocks, runtime scenarios, ADRs, quality scenarios, risks, glossary).
+- [**docs/structurizr/**](docs/structurizr/README.md) — executable [C4 model](https://c4model.com) in [Structurizr DSL](https://docs.structurizr.com/dsl); renders to context, container, component and deployment diagrams via Structurizr Lite or the CLI.
 
 ## CI/CD
 

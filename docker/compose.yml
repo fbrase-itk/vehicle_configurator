@@ -44,5 +44,16 @@ services:
     depends_on:
       - backend
 
+  # Structurizr Lite - C4 architecture documentation (docs/structurizr/workspace.dsl).
+  # Browse at http://localhost:8000/ ; edits to the DSL hot-reload automatically.
+  structurizr:
+    container_name: configurator-structurizr
+    image: structurizr/lite:latest
+    ports:
+      - "8000:8080"
+    volumes:
+      - ../docs/structurizr:/usr/local/structurizr
+    restart: unless-stopped
+
 volumes:
   db-data:

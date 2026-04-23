@@ -89,3 +89,4 @@ vehicle-configurator/
 - Task-4: Can you create an azure directory and create scripts for setup and tear down ?
 - Task-5: Can you adjust the frontend to my prefered colors (c.f. [README.md → Theme & Design Tokens](README.md#theme--design-tokens)) ?
 - Task-6: Can you create docs/arc42 directory and add architecture documention in md format ?
+- Task-7: Can you add docs/structurizr directory and add documentation in C4 format ?

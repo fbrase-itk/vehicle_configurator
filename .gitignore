@@ -32,3 +32,11 @@ docker/db-data/
 
 # Local env overrides (tracked env files live under docker/env/)
 .env.local
+
+# Structurizr Lite — generated on the fly from workspace.dsl
+docs/structurizr/.structurizr/
+docs/structurizr/workspace.json
+docs/structurizr/out/
+
+# SQLTools / Database-Client ad-hoc query files
+*.session.sql
