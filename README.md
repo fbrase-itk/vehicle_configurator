@@ -105,6 +105,11 @@ The frontend uses a light-blue theme derived from the palette in [PRD.md → Pre
 --gradient-primary-on-dark: linear-gradient(90deg, #A7E2FF, #B79CFF);
 ```
 
+## Architecture Documentation
+
+- [**ARCHITECTURE.md**](ARCHITECTURE.md) — short, diagram-first overview (context, component and deployment diagrams, CI/CD pipeline).
+- [**docs/arc42/**](docs/arc42/README.md) — full architecture description following the [arc42](https://arc42.org) template (quality goals, building blocks, runtime scenarios, ADRs, quality scenarios, risks, glossary).
+
 ## CI/CD
 
 Automated pipelines run on GitHub Actions.

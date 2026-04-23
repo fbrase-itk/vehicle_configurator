@@ -88,3 +88,4 @@ vehicle-configurator/
 - Task-3: The repo is moved to github (c.f. "git remote -v") - Can you add a Github Actions based workflow for CI/CD integration ?
 - Task-4: Can you create an azure directory and create scripts for setup and tear down ?
 - Task-5: Can you adjust the frontend to my prefered colors (c.f. [README.md → Theme & Design Tokens](README.md#theme--design-tokens)) ?
+- Task-6: Can you create docs/arc42 directory and add architecture documention in md format ?
